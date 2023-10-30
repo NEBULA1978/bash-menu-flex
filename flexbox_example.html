@@ -4,7 +4,7 @@
 <style>
 .flex-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: stretch;
@@ -19,13 +19,22 @@
   margin: 10px; /* Márgenes entre los elementos flexibles */
   background-color: lightgray; /* Color de fondo de los elementos */
 }
+
+.centered-box {
+  width: 100px;
+  height: 100px;
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
 </head>
 <body>
 <div class="flex-container">
   <div class="flex-item">1</div>
   <div class="flex-item">2</div>
-  <div class="flex-item">3</div>
+  <div class="centered-box">Centered</div>
 </div>
 </body>
 </html>
