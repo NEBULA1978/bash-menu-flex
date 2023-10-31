@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Estilos iniciales (similares a los valores por defecto) */
+    .flex-container {
+      display: flex; /* Define el tipo de display para el contenedor */
+      flex-direction: row; /* Establece la dirección de los elementos flexibles */
+      flex-wrap: nowrap; /* Define si los elementos pueden envolverse o no */
+      justify-content: flex-start; /* Alinea los elementos a lo largo del eje principal */
+      align-items: stretch; /* Alinea los elementos a lo largo del eje transversal */
+      align-content: flex-start; /* Alinea las líneas flexibles en el contenedor */
+      font-family: inherit; /* Define la familia de fuentes para el texto */
+      font-size: 16px; /* Establece el tamaño de la fuente */
+      padding: 10px; /* Define el relleno alrededor de los elementos */
+      border: none; /* Establece el borde de los elementos */
+      box-shadow: none; /* Define la sombra de los elementos */
+    }
+
+    .flex-item {
+      width: 100px; /* Define el ancho de los elementos flexibles */
+      height: 100px; /* Define la altura de los elementos flexibles */
+      margin: 10px; /* Define el margen alrededor de los elementos */
+      background-color: lightgray; /* Establece el color de fondo de los elementos */
+    }
+
+    .centered-box {
+      width: 100px; /* Define el ancho de la caja centrada */
+      height: 100px; /* Define la altura de la caja centrada */
+      background-color: lightblue; /* Establece el color de fondo de la caja centrada */
+      display: flex; /* Define la visualización flex de la caja centrada */
+      align-items: center; /* Alinea verticalmente los contenidos de la caja centrada */
+      justify-content: center; /* Alinea horizontalmente los contenidos de la caja centrada */
+    }
+  </style>
+</head>
+<body>
+  <div class="flex-container">
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="centered-box">Centered</div>
+  </div>
+
+  <div id="input-container">
+    <h3>Configuración</h3>
+    <p>Selecciona la propiedad a modificar e introduce el nuevo valor:</p>
+
+    <label for="option">Propiedad a modificar:</label>
+    <select id="option">
+      <option value="1">Display del contenedor</option>
+      <option value="2">Dirección de elementos flexibles</option>
+      <option value="3">Flex-wrap</option>
+      <option value="4">Justify-content</option>
+      <option value="5">Align-items</option>
+      <option value="6">Align-content</option>
+      <option value="7">Font-family</option>
+      <option value="8">Font-size</option>
+      <option value="9">Padding</option>
+      <option value="10">Border</option>
+      <option value="11">Box-shadow</option>
+      <option value="12">Width de los elementos</option>
+      <option value="13">Height de los elementos</option>
+      <option value="14">Margin de los elementos</option>
+      <option value="15">Background-color</option>
+    </select><br>
+
+    <label for="value">Nuevo valor:</label>
+    <input type="text" id="value" placeholder="Nuevo valor"><br><br>
+
+    <button onclick="updateStylesBasedOnChoice()">Aplicar Cambio</button>
+  </div>
+
+  <script>
+    function updateStyles(element, propertyName, value) {
+      element.style.setProperty(propertyName, value);
+    }
+
+    function updateStylesBasedOnChoice() {
+      const chosenOption = parseInt(document.getElementById('option').value);
+      const value = document.getElementById('value').value;
+      const elements = {
+        flexContainer: document.querySelector('.flex-container'),
+        flexItems: document.querySelectorAll('.flex-item'),
+        centeredBox: document.querySelector('.centered-box')
+      };
+
+      switch (chosenOption) {
+        case 1:
+          updateStyles(elements.flexContainer, 'display', value);
+          break;
+        case 2:
+          updateStyles(elements.flexContainer, 'flex-direction', value);
+          break;
+        case 3:
+          updateStyles(elements.flexContainer, 'flex-wrap', value);
+          break;
+        case 4:
+          updateStyles(elements.flexContainer, 'justify-content', value);
+          break;
+        case 5:
+          updateStyles(elements.flexContainer, 'align-items', value);
+          break;
+        case 6:
+          updateStyles(elements.flexContainer, 'align-content', value);
+          break;
+        case 7:
+          updateStyles(elements.flexContainer, 'font-family', value);
+          break;
+        case 8:
+          updateStyles(elements.flexContainer, 'font-size', value);
+          break;
+        case 9:
+          updateStyles(elements.flexContainer, 'padding', value);
+          break;
+        case 10:
+          updateStyles(elements.flexContainer, 'border', value);
+          break;
+        case 11:
+          updateStyles(elements.flexContainer, 'box-shadow', value);
+          break;
+        case 12:
+          elements.flexItems.forEach(item => updateStyles(item, 'width', value));
+          break;
+        case 13:
+          elements.flexItems.forEach(item => updateStyles(item, 'height', value));
+          break;
+        case 14:
+          elements.flexItems.forEach(item => updateStyles(item, 'margin', value));
+          break;
+        case 15:
+          elements.flexItems.forEach(item => updateStyles(item, 'background-color', value));
+          break;
+        default:
+          alert('Opción inválida. Por favor, elige un número entre 1 y 15.');
+      }
+    }
+  </script>
+</body>
+</html>
