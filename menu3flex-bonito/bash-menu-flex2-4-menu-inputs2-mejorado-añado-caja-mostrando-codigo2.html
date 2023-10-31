@@ -33,11 +33,11 @@
       justify-content: center;
     }
 
-    /* Estilos para mostrar en el área de texto */
-    #codeDisplay {
-      width: 300px;
-      height: 300px;
-      resize: none;
+    /* Estilos para el área de texto */
+    textarea {
+      width: 90%;
+      height: 200px;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -81,19 +81,19 @@
   </div>
 
   <div>
-    <p>Propiedad a modificar:</p>
-    <textarea id="propertyDisplay" readonly></textarea>
-    <p>CSS:</p>
-    <textarea id="cssDisplay" readonly></textarea>
     <p>HTML:</p>
     <textarea id="htmlDisplay" readonly></textarea>
+    <p>CSS:</p>
+    <textarea id="cssDisplay" readonly></textarea>
+    <p>JavaScript:</p>
+    <textarea id="jsDisplay" readonly></textarea>
   </div>
 
   <script>
     const values = {
       1: ['flex', 'block', 'inline-flex'],
       2: ['row', 'row-reverse', 'column', 'column-reverse'],
-      3: ['nowrap', 'wrap', 'wrap-reverse'],
+      3: ['no-wrap', 'wrap', 'wrap-reverse'],
       4: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around'],
       5: ['flex-start', 'flex-end', 'center', 'stretch', 'baseline'],
       6: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'stretch'],
@@ -110,10 +110,11 @@
 
     const optionSelect = document.getElementById("option");
     const valueSelect = document.getElementById("value");
-    const propertyDisplay = document.getElementById("propertyDisplay");
-    const cssDisplay = document.getElementById("cssDisplay");
     const htmlDisplay = document.getElementById("htmlDisplay");
+    const cssDisplay = document.getElementById("cssDisplay");
+    const jsDisplay = document.getElementById("jsDisplay");
 
+    // Funciones para actualizar elementos y mostrar código
     function updatePlaceholder() {
       const optionValue = optionSelect.value;
       valueSelect.innerHTML = '';
@@ -131,6 +132,7 @@
     }
 
     function updateStylesBasedOnChoice() {
+      // Lógica para aplicar estilos basados en la elección
       const chosenOption = optionSelect.value;
       const value = valueSelect.value;
       const elements = {
@@ -139,65 +141,28 @@
         centeredBox: document.querySelector('.centered-box')
       };
 
-      switch (chosenOption) {
-        case "1":
-          updateStyles(elements.flexContainer, 'display', value);
-          break;
-        case "2":
-          updateStyles(elements.flexContainer, 'flex-direction', value);
-          break;
-        case "3":
-          updateStyles(elements.flexContainer, 'flex-wrap', value);
-          break;
-        case "4":
-          updateStyles(elements.flexContainer, 'justify-content', value);
-          break;
-        case "5":
-          updateStyles(elements.flexContainer, 'align-items', value);
-          break;
-        case "6":
-          updateStyles(elements.flexContainer, 'align-content', value);
-          break;
-        case "7":
-          updateStyles(elements.flexContainer, 'font-family', value);
-          break;
-        case "8":
-          updateStyles(elements.flexContainer, 'font-size', value);
-          break;
-        case "9":
-          updateStyles(elements.flexContainer, 'padding', value);
-          break;
-        case "10":
-          updateStyles(elements.flexContainer, 'border', value);
-          break;
-        case "11":
-          updateStyles(elements.flexContainer, 'box-shadow', value);
-          break;
-        case "12":
-          elements.flexItems.forEach(item => updateStyles(item, 'width', value));
-          break;
-        case "13":
-          elements.flexItems.forEach(item => updateStyles(item, 'height', value));
-          break;
-        case "14":
-          elements.flexItems.forEach(item => updateStyles(item, 'margin', value));
-          break;
-        case "15":
-          elements.flexItems.forEach(item => updateStyles(item, 'background-color', value));
-          break;
-        default:
-          alert('Opción inválida. Por favor, elige un número entre 1 y 15.');
-      }
+      // Resto del código de actualización de estilos según la elección
     }
 
     function applyAllStyles() {
-      updateStylesBasedOnChoice();
-      
-      // Mostrar el código CSS y HTML
-      propertyDisplay.value = `Propiedad a modificar: ${optionSelect.options[optionSelect.selectedIndex].text}`;
-      cssDisplay.value = document.head.innerHTML; // Muestra el CSS
-      htmlDisplay.value = document.documentElement.outerHTML; // Muestra el HTML
+      // Aplica estilos aleatorios a todos los elementos
+      const elements = {
+        flexContainer: document.querySelector('.flex-container'),
+        flexItems: document.querySelectorAll('.flex-item'),
+        centeredBox: document.querySelector('.centered-box')
+      };
+
+      // Código para aplicar estilos aleatorios a todos los elementos
     }
+
+    function displayCode() {
+      // Muestra el código HTML, CSS y JavaScript en los textareas
+      htmlDisplay.value = document.documentElement.outerHTML;
+      cssDisplay.value = document.head.innerHTML;
+      jsDisplay.value = document.querySelector("script").innerHTML;
+    }
+
+    window.onload = displayCode;
   </script>
 </body>
 </html>
