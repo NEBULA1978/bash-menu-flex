@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Estilos iniciales (similares a los valores por defecto) */
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      align-content: flex-start;
+      font-family: inherit;
+      font-size: 16px;
+      padding: 10px;
+      border: none;
+      box-shadow: none;
+    }
+
+    .flex-item {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      background-color: lightgray;
+    }
+
+    .centered-box {
+      width: 100px;
+      height: 100px;
+      background-color: lightblue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex-container">
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="centered-box">Centered</div>
+  </div>
+
+  <div id="input-container">
+    <h3>Configuración</h3>
+    <p>Selecciona la propiedad a modificar e introduce el nuevo valor:</p>
+
+    <label for="option">Propiedad a modificar:</label>
+    <select id="option" onchange="updatePlaceholder()">
+      <option value="1">Display del contenedor</option>
+      <option value="2">Dirección de elementos flexibles</option>
+      <option value="3">Flex-wrap</option>
+      <option value="4">Justify-content</option>
+      <option value="5">Align-items</option>
+      <option value="6">Align-content</option>
+      <option value="7">Font-family</option>
+      <option value="8">Font-size</option>
+      <option value="9">Padding</option>
+      <option value="10">Border</option>
+      <option value="11">Box-shadow</option>
+      <option value="12">Width de los elementos</option>
+      <option value="13">Height de los elementos</option>
+      <option value="14">Margin de los elementos</option>
+      <option value="15">Background-color</option>
+    </select><br>
+
+    <label for="value">Nuevo valor:</label>
+    <select id="value" placeholder="Seleccionar valor">
+      <!-- Los valores de las opciones se generan automáticamente con JavaScript -->
+    </select><br><br>
+
+    <button onclick="updateStylesBasedOnChoice()">Aplicar Cambio</button>
+    <button onclick="applyAllStyles()">Aplicar Todos los Estilos</button>
+  </div>
+
+  <script>
+    const values = {
+      1: ['flex', 'block', 'inline-flex'],
+      2: ['row', 'row-reverse', 'column', 'column-reverse'],
+      3: ['no-wrap', 'wrap', 'wrap-reverse'],
+      4: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around'],
+      5: ['flex-start', 'flex-end', 'center', 'stretch', 'baseline'],
+      6: ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'stretch'],
+      7: ['Arial, sans-serif'],
+      8: ['16px', '18px', '20px'],
+      9: ['10px', '15px', '20px'],
+      10: ['1px solid black', '2px dashed red'],
+      11: ['2px 2px 5px gray', '5px 5px 10px black'],
+      12: ['100px', '150px', '200px'],
+      13: ['100px', '150px', '200px'],
+      14: ['10px', '15px', '20px'],
+      15: ['lightgray', 'lightblue', 'red', 'blue']
+    };
+
+    const optionSelect = document.getElementById("option");
+    const valueSelect = document.getElementById("value");
+
+    function updatePlaceholder() {
+      const optionValue = optionSelect.value;
+      valueSelect.innerHTML = '';
+
+      for (const val of values[optionValue]) {
+        const option = document.createElement("option");
+        option.value = val;
+        option.textContent = val;
+        valueSelect.appendChild(option);
+      }
+    }
+
+    function updateStyles(element, propertyName, value) {
+      element.style.setProperty(propertyName, value);
+    }
+
+    function updateStylesBasedOnChoice() {
+      const chosenOption = optionSelect.value;
+      const value = valueSelect.value;
+      const elements = {
+        flexContainer: document.querySelector('.flex-container'),
+        flexItems: document.querySelectorAll('.flex-item'),
+        centeredBox: document.querySelector('.centered-box')
+      };
+
+      switch (chosenOption) {
+        case "1":
+          updateStyles(elements.flexContainer, 'display', value);
+          break;
+        case "2":
+          updateStyles(elements.flexContainer, 'flex-direction', value);
+          break;
+        case "3":
+          updateStyles(elements.flexContainer, 'flex-wrap', value);
+          break;
+        case "4":
+          updateStyles(elements.flexContainer, 'justify-content', value);
+          break;
+        case "5":
+          updateStyles(elements.flexContainer, 'align-items', value);
+          break;
+        case "6":
+          updateStyles(elements.flexContainer, 'align-content', value);
+          break;
+        case "7":
+          updateStyles(elements.flexContainer, 'font-family', value);
+          break;
+        case "8":
+          updateStyles(elements.flexContainer, 'font-size', value);
+          break;
+        case "9":
+          updateStyles(elements.flexContainer, 'padding', value);
+          break;
+        case "10":
+          updateStyles(elements.flexContainer, 'border', value);
+          break;
+        case "11":
+          updateStyles(elements.flexContainer, 'box-shadow', value);
+          break;
+        case "12":
+          elements.flexItems.forEach(item => updateStyles(item, 'width', value));
+          break;
+        case "13":
+          elements.flexItems.forEach(item => updateStyles(item, 'height', value));
+          break;
+        case "14":
+          elements.flexItems.forEach(item => updateStyles(item, 'margin', value));
+          break;
+        case "15":
+          elements.flexItems.forEach(item => updateStyles(item, 'background-color', value));
+          break;
+        default:
+          alert('Opción inválida. Por favor, elige un número entre 1 y 15.');
+      }
+    }
+
+    function applyAllStyles() {
+      const elements = {
+        flexContainer: document.querySelector('.flex-container'),
+        flexItems: document.querySelectorAll('.flex-item'),
+        centeredBox: document.querySelector('.centered-box')
+      };
+
+      for (let i = 1; i <= 15; i++) {
+        const value = values[i][Math.floor(Math.random() * values[i].length)];
+        const chosenOption = i.toString();
+        switch (chosenOption) {
+          case "1":
+            updateStyles(elements.flexContainer, 'display', value);
+            break;
+          case "2":
+            updateStyles(elements.flexContainer, 'flex-direction', value);
+            break;
+          case "3":
+            updateStyles(elements.flexContainer, 'flex-wrap', value);
+            break;
+          case "4":
+            updateStyles(elements.flexContainer, 'justify-content', value);
+            break;
+          case "5":
+            updateStyles(elements.flexContainer, 'align-items', value);
+            break;
+          case "6":
+            updateStyles(elements.flexContainer, 'align-content', value);
+            break;
+          case "7":
+            updateStyles(elements.flexContainer, 'font-family', value);
+            break;
+          case "8":
+            updateStyles(elements.flexContainer, 'font-size', value);
+            break;
+          case "9":
+            updateStyles(elements.flexContainer, 'padding', value);
+            break;
+          case "10":
+            updateStyles(elements.flexContainer, 'border', value);
+            break;
+          case "11":
+            updateStyles(elements.flexContainer, 'box-shadow', value);
+            break;
+          case "12":
+            elements.flexItems.forEach(item => updateStyles(item, 'width', value));
+            break;
+          case "13":
+            elements.flexItems.forEach(item => updateStyles(item, 'height', value));
+            break;
+          case "14":
+            elements.flexItems.forEach(item => updateStyles(item, 'margin', value));
+            break;
+          case "15":
+            elements.flexItems.forEach(item => updateStyles(item, 'background-color', value));
+            break;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+
+<!-- Este código incluye tanto el HTML, el CSS y el JavaScript, permitiendo cambiar estilos específicos o aplicar valores aleatorios a todas las propiedades con los botones proporcionados. -->
